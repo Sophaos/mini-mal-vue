@@ -6,6 +6,7 @@ defineProps<{
   isCollapsed?: boolean
 }>()
 </script>
+
 <template>
   <Panel :toggleable="true" :header="title" :collapsed="isCollapsed">
     <slot></slot>
