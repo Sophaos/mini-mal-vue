@@ -1,12 +1,3 @@
-<template>
-  <div class="card">
-    <Menubar :model="items">
-      <template #start>
-        <Avatar image="https://cdn.myanimelist.net/images/kaomoji_mal_white.png" shape="circle" />
-      </template>
-    </Menubar>
-  </div>
-</template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -28,3 +19,13 @@ const items = ref([
   }
 ])
 </script>
+
+<template>
+  <div class="card">
+    <Menubar :model="items">
+      <template #start>
+        <Avatar image="https://cdn.myanimelist.net/images/kaomoji_mal_white.png" shape="circle" />
+      </template>
+    </Menubar>
+  </div>
+</template>
