@@ -3,19 +3,27 @@
 import { ref } from 'vue'
 import Menubar from 'primevue/menubar'
 import Avatar from 'primevue/avatar'
+import { getCurrentSeason } from '@/shared/utils/currentSeason';
 
+const currentSeason = getCurrentSeason();
+const currentYear = new Date().getFullYear();
+const seasonUrl = `/season/${currentYear}/${currentSeason}`;
 const items = ref([
   {
-    label: 'Home'
+    label: 'Home',
+    url: '/'
   },
   {
-    label: 'Animes'
+    label: 'Animes',
+    url: '/animes'
   },
   {
-    label: 'Mangas'
+    label: 'Mangas',
+    url: '/mangas'
   },
   {
-    label: 'Season'
+    label: 'Season',
+    url: seasonUrl
   }
 ])
 </script>

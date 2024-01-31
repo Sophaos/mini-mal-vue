@@ -11,25 +11,16 @@ const router = createRouter({
     {
       path: '/animes',
       name: 'animes',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../features/animes/views/AnimeListView.vue')
     },
     {
-      path: '/season',
+      path: '/season/:year/:season',
       name: 'season',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../features/season/views/SeasonListView.vue')
     },
     {
       path: '/mangas',
       name: 'mangas',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../features/mangas/views/MangaListView.vue')
     }
   ]

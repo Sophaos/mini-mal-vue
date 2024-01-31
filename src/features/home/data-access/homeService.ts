@@ -1,31 +1,44 @@
-import axios from 'axios'
-import { app } from '@/main'
+import axios from '@/middleware/axios-config'
 import type { HomeRecommendation } from '@/shared/data-access/models/homeRecommendation'
 import type { Review } from '@/shared/data-access/models/review'
-
-axios.interceptors.response.use(
-  (response) => {
-    return response
-  },
-  (error) => {
-    console.error('HTTP error occurred:', error)
-    app.config.globalProperties.$toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: error,
-      life: 3000
-    })
-
-    return Promise.reject(error)
-  }
-)
+import type { Media } from '@/shared/data-access/models/media'
 
 const BASE_URL = 'https://api.jikan.moe/v4'
 
+const TOP_ANIME_PARAMS: TopAnimeQuery = {
+  filter: 'airing',
+  sfw: true,
+  limit: 10,
+  page: 1
+}
+
+interface TopAnimeQuery {
+  filter: string
+  sfw: boolean
+  limit: number
+  page: number
+}
+
 export const getTopAiringAnimes = async () => {
   try {
-    const res = await axios.get(`${BASE_URL}/top/anime`)
-    return res.data
+    const res = await axios.get(`${BASE_URL}/top/anime`, { params: TOP_ANIME_PARAMS })
+    const topAiringAnimes: Media[] = res.data.data.map(
+      (item: any) =>
+        ({
+          id: item.mal_id,
+          title: item.title,
+          titleEnglish: item.title_english,
+          from: item.aired?.from,
+          episodes: item.episodes,
+          imageSrc: item.images.jpg.image_url,
+          synopsis: item.synopsis,
+          score: item.score,
+          members: item.members,
+          genres: item.genres.map((r: any) => r.name),
+          imageLargeSrc: item.images.jpg.large_image_url
+        }) satisfies Media
+    )
+    return topAiringAnimes
   } catch (error) {
     console.error('Error fetching top airing animes:', error)
     throw error
