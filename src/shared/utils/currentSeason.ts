@@ -1,14 +1,14 @@
 export function getCurrentSeason(): string {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1; // Month is zero-indexed, so we add 1
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth() + 1 // Month is zero-indexed, so we add 1
 
   if (currentMonth >= 3 && currentMonth <= 5) {
-    return 'summer';
+    return 'summer'
   } else if (currentMonth >= 6 && currentMonth <= 8) {
-    return 'spring';
+    return 'spring'
   } else if (currentMonth >= 9 && currentMonth <= 11) {
-    return 'fall';
+    return 'fall'
   } else {
-    return 'winter';
+    return 'winter'
   }
 }

@@ -1,6 +1,6 @@
 export interface Recommendation {
-  id: number;
-  title: string;
-  votes: number;
-  imageSrc: string;
+  id: number
+  title: string
+  votes: number
+  imageSrc: string
 }

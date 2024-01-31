@@ -1,6 +1,6 @@
-import { Person } from './personResponse';
+import { Person } from './personResponse'
 
 export interface StaffResponse {
-  person: Person;
-  positions: string[];
+  person: Person
+  positions: string[]
 }

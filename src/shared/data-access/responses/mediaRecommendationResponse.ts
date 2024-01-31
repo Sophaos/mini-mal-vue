@@ -1,7 +1,7 @@
-import { Entry } from './entryResponse';
+import { Entry } from './entryResponse'
 
 export interface MediaRecommendationResponse {
-  entry: Entry;
-  url: string;
-  votes: number;
+  entry: Entry
+  url: string
+  votes: number
 }

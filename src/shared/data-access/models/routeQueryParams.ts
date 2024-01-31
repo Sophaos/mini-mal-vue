@@ -1,3 +1,3 @@
 export interface RouteQueryParams {
-  [key: string]: string | number | boolean | unknown;
+  [key: string]: string | number | boolean | unknown
 }

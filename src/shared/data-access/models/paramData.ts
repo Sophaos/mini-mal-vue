@@ -1,4 +1,4 @@
 export interface ParamData {
-  param: string;
-  value: string | number;
+  param: string
+  value: string | number
 }

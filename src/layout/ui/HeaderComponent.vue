@@ -1,13 +1,12 @@
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import Menubar from 'primevue/menubar'
 import Avatar from 'primevue/avatar'
-import { getCurrentSeason } from '@/shared/utils/currentSeason';
+import { getCurrentSeason } from '@/shared/utils/currentSeason'
 
-const currentSeason = getCurrentSeason();
-const currentYear = new Date().getFullYear();
-const seasonUrl = `/season/${currentYear}/${currentSeason}`;
+const currentSeason = getCurrentSeason()
+const currentYear = new Date().getFullYear()
+const seasonUrl = `/season/${currentYear}/${currentSeason}`
 const items = ref([
   {
     label: 'Home',

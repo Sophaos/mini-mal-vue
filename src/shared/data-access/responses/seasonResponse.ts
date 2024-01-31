@@ -1,4 +1,4 @@
 export interface SeasonResponse {
-  year: number;
-  seasons: string[];
+  year: number
+  seasons: string[]
 }

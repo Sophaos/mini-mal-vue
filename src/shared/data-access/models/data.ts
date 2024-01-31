@@ -1,3 +1,3 @@
 export interface Data<T> {
-  data: T[];
+  data: T[]
 }

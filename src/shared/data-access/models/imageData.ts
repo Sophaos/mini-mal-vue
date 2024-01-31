@@ -1,4 +1,4 @@
 export interface ImageData {
-  imageLarge: string;
-  imageSmall: string;
+  imageLarge: string
+  imageSmall: string
 }

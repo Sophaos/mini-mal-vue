@@ -1,8 +1,8 @@
-import { Images } from './imageResponse';
+import { Images } from './imageResponse'
 
 export interface Person {
-  mal_id: number;
-  url: string;
-  images: Images;
-  name: string;
+  mal_id: number
+  url: string
+  images: Images
+  name: string
 }

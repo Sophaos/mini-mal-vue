@@ -9,9 +9,9 @@ const BASE_URL = 'https://api.jikan.moe/v4'
 
 // export const getSeasonMediaData = async (params: SeasonParams) => {
 
-export const getSeasonMediaData = async () => {
+export const getSeasonMediaData = async (params: SeasonParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}/seasons/${2024}/${'winter'}`)
+    const res = await axios.get(`${BASE_URL}/seasons/${params.year}/${params.season}`)
     const data: Media[] = res.data.data.map((item: any) => ({
       id: item.mal_id,
       title: item.title,

@@ -14,6 +14,12 @@ const router = createRouter({
       component: () => import('../features/animes/views/AnimeListView.vue')
     },
     {
+      path: '/animes/:id', // Define the route with a dynamic segment ':id'
+      name: 'anime-detail', // Name the route
+      component: () => import('../features/animes/views/AnimeDetailsView.vue'), // Assuming you have a component for anime detail view
+      props: true // Enable passing route params as props to the component
+    },
+    {
       path: '/season/:year/:season',
       name: 'season',
       component: () => import('../features/season/views/SeasonListView.vue')

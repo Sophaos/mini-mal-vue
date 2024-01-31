@@ -1,7 +1,7 @@
-import { Images } from './imageResponse';
+import { Images } from './imageResponse'
 
 export interface User {
-  url: string;
-  username: string;
-  images: Images;
+  url: string
+  username: string
+  images: Images
 }
