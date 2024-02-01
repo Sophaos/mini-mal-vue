@@ -1,4 +1,4 @@
-import { BasicDisplayData } from './basicDisplayData'
+import type { BasicDisplayData } from './basicDisplayData'
 
 export interface Media {
   id: number

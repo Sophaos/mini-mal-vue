@@ -2,13 +2,8 @@
 import MediaDataComponent from '@/shared/ui/MediaDataComponent.vue'
 import { getSeasonData, getSeasonMediaData } from '../data-access/seasonService'
 import { useQuery } from '@tanstack/vue-query'
+import PaginatorComponent from '@/shared/ui/PaginatorComponent.vue'
 
-// const { data: animes, isPending: isPending } = useQuery({
-//   queryKey: ['topAiringAnimes'],
-//   queryFn: getSeasonData,
-// })
-// const season = 'winter',
-// const year = 2024
 const { data: animes, isPending: isPending } = useQuery({
   queryKey: ['seasonMediaData'],
   queryFn: () => getSeasonMediaData({ year: 2023, season: 'winter' })
@@ -18,13 +13,8 @@ defineProps<{}>()
 </script>
 
 <template>
-  <div></div>
-  <!-- <app-data-view-filter
-      *ngIf="filters$ | async as vm"
-      [filterDropdowns]="vm.filters"
-      [isLoading]="vm.isLoading"
-    /> -->
-  <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
-  <!-- [pagination]="vm.pagination" -->
-  <!-- (onPageChange)="handlePageChange($event)" -->
+  <div class="col-12">
+    <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
+    <PaginatorComponent :pagination="animes?.mediaData.pagination" />
+  </div>
 </template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PanelComponent from '@/shared/ui/PanelComponent.vue'
 import { useQuery } from '@tanstack/vue-query'
 import {
   getTopAiringAnimes,
@@ -25,26 +24,23 @@ const { data: recommendations, isPending: areRecommendationsPending } = useQuery
 </script>
 
 <template>
-  <!-- <PanelComponent class="my-1 col-12" title="Top Airing Animes" :isCollapsed="false" /> -->
   <MainPreviewComponent
     class="my-1 col-12"
     header="Top Airing Animes"
     :data="animes"
     :isLoading="areAnimesPending"
+    type="animes"
   />
   <div class="flex flex-wrap">
-    <PanelComponent class="xl:col-6 lg:col-6 col-12" title="Latest Reviews" :isCollapsed="false">
-      <HomeReviewsComponentVue :reviews="reviews" :isLoading="areReviewsPending" />
-    </PanelComponent>
-    <PanelComponent
+    <HomeReviewsComponentVue
       class="xl:col-6 lg:col-6 col-12"
-      title="Latest Recommendations"
-      :isCollapsed="false"
-    >
-      <HomeRecommendationsComponent
-        :recommendations="recommendations"
-        :isLoading="areRecommendationsPending"
-      />
-    </PanelComponent>
+      :reviews="reviews"
+      :isLoading="areReviewsPending"
+    />
+    <HomeRecommendationsComponent
+      class="xl:col-6 lg:col-6 col-12"
+      :recommendations="recommendations"
+      :isLoading="areRecommendationsPending"
+    />
   </div>
 </template>

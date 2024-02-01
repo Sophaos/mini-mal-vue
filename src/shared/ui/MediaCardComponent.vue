@@ -11,11 +11,13 @@ defineProps<{
 <template>
   <div class="p-4 flex flex-column h-full border-1 surface-border surface-card border-round">
     <div>
-      <a
+      <router-link
+        :to="{ name: 'anime-detail', params: { id: media.id } }"
+        replace
         class="font-semibold flex justify-content-center text-primary text-overflow-ellipsis no-underline"
       >
         {{ media.titleEnglish ?? media.title }}
-      </a>
+      </router-link>
     </div>
     <div class="flex align-items-center justify-content-center">
       <div v-if="media.from" class="mx-3 text-color-secondary">

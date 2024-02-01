@@ -20,14 +20,20 @@ const router = createRouter({
       props: true // Enable passing route params as props to the component
     },
     {
-      path: '/season/:year/:season',
-      name: 'season',
-      component: () => import('../features/season/views/SeasonListView.vue')
-    },
-    {
       path: '/mangas',
       name: 'mangas',
       component: () => import('../features/mangas/views/MangaListView.vue')
+    },
+    {
+      path: '/mangas/:id', // Define the route with a dynamic segment ':id'
+      name: 'manga-detail', // Name the route
+      component: () => import('../features/mangas/views/MangaDetailsView.vue'), // Assuming you have a component for anime detail view
+      props: true // Enable passing route params as props to the component
+    },
+    {
+      path: '/season/:year/:season',
+      name: 'season',
+      component: () => import('../features/season/views/SeasonListView.vue')
     }
   ]
 })

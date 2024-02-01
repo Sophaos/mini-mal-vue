@@ -8,6 +8,7 @@ import { getCurrentSeason } from '../utils/currentSeason'
 defineProps<{
   header: string
   isLoading: boolean
+  type: 'animes' | 'mangas'
   data: Media[] | undefined
 }>()
 
@@ -34,7 +35,7 @@ const currentYear = new Date().getFullYear()
         :autoplayInterval="8000"
       >
         <template #item="anime">
-          <MainPreviewContentComponent :media="anime.data" :isLoading="isLoading" />
+          <MainPreviewContentComponent :media="anime.data" :isLoading="isLoading" :type="type" />
         </template>
       </Carousel>
     </Panel>
