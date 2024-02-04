@@ -1,6 +1,4 @@
-import type { SeasonQueryParams } from './seasonQueryParams'
-
-export interface SeasonParams extends SeasonQueryParams {
-  year: number | string
-  season: string | string
+export interface SeasonParams {
+  year: string
+  season: string
 }

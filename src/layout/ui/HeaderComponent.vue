@@ -6,7 +6,7 @@ import { getCurrentSeason } from '@/shared/utils/currentSeason'
 
 const currentSeason = getCurrentSeason()
 const currentYear = new Date().getFullYear()
-const seasonUrl = `/season/${currentYear}/${currentSeason}`
+const seasonUrl = `/season/${currentYear}/${currentSeason}?page=1&limit=16`
 const items = ref([
   {
     label: 'Home',

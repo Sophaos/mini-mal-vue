@@ -34,6 +34,11 @@ const router = createRouter({
       path: '/season/:year/:season',
       name: 'season',
       component: () => import('../features/season/views/SeasonListView.vue')
+    },
+    {
+      path: '/season/', // Define a route for the path without parameters
+      name: 'defaultSeason',
+      component: () => import('../features/season/views/SeasonListView.vue')
     }
   ]
 })

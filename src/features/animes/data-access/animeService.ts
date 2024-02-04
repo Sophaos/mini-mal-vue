@@ -3,14 +3,15 @@ import type { AnimeQueryParams } from '@/shared/data-access/models/animeQueryPar
 import type { Media } from '@/shared/data-access/models/media'
 import type { Pagination } from '@/shared/data-access/models/pagination'
 import type { ImageData } from '@/shared/data-access/models/imageData'
+import type { BasicDisplayData } from '@/shared/data-access/models/basicDisplayData'
+import type { DetailedReview } from '@/shared/data-access/models/detailedReview'
+import type { Recommendation } from '@/shared/data-access/models/recommendation'
 
-const BASE_URL = 'https://api.jikan.moe/v4'
-
-// export const getSeasonMediaData = async (params: SeasonParams) => {
+const BASE_URL = 'https://api.jikan.moe/v4/anime'
 
 export const getAnimeList = async (params: AnimeQueryParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}/anime`)
+    const res = await axios.get(`${BASE_URL}`)
     const data: Media[] = res.data.data.map(
       (item: any) =>
         ({
@@ -40,7 +41,7 @@ export const getAnimeList = async (params: AnimeQueryParams) => {
 
 export const getAnimeDetail = async (id: any) => {
   try {
-    const res = (await axios.get(`${BASE_URL}/anime/${id}/full`)).data
+    const res = (await axios.get(`${BASE_URL}/${id}/full`)).data
     const mediaData: Media = {
       id: res.data.mal_id,
       title: res.data.title,
@@ -86,7 +87,7 @@ export const getAnimeDetail = async (id: any) => {
 
 export const getAnimePictures = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/anime/${id}/pictures`)
+    const res = await axios.get(`${BASE_URL}/${id}/pictures`)
     const images: ImageData[] = res.data.data.map(
       (item: any) =>
         ({
@@ -95,6 +96,81 @@ export const getAnimePictures = async (id: any) => {
         }) satisfies ImageData
     )
     return images
+  } catch (error) {
+    console.error('Error fetching top airing animes:', error)
+    throw error
+  }
+}
+
+export const getAnimeRecommendations = async (id: any) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${id}/recommendations`)
+    const recommendations = res.data.data.map(
+      (item: any) =>
+        ({
+          id: item.entry.mal_id,
+          title: item.entry.title,
+          votes: item.votes,
+          imageSrc: item.entry.images.jpg.image_url
+        }) satisfies Recommendation
+    )
+    return recommendations
+  } catch (error) {
+    console.error('Error fetching top airing animes:', error)
+    throw error
+  }
+}
+
+export const getAnimeReviews = async (id: any) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${id}/reviews`)
+    const reviews: DetailedReview[] = res.data.data.map((item: any) => {
+      return {
+        content: item.review,
+        score: item.score,
+        user: item.user.username,
+        imageSrc: item.user.images.jpg.image_url,
+        tags: [...item.tags],
+        date: item.date
+      } satisfies DetailedReview
+    })
+    return reviews
+  } catch (error) {
+    console.error('Error fetching top airing animes:', error)
+    throw error
+  }
+}
+
+export const getAnimeCharacters = async (id: any) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${id}/characters`)
+    const characters: BasicDisplayData[] = res.data.data.map(
+      (item: any) =>
+        ({
+          imageSrc: item.character.images.jpg.image_url,
+          title: `${item.character.name} (${item.role})`,
+          informations: item.voice_actors.map((v: any) => `${v.person.name} ${v.language}`)
+        }) satisfies BasicDisplayData
+    )
+    return characters
+  } catch (error) {
+    console.error('Error fetching top airing animes:', error)
+    throw error
+  }
+}
+
+export const getAnimeStaff = async (id: any) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${id}/staff`)
+    const staff: BasicDisplayData[] = res.data.data.map(
+      (item: any) =>
+        ({
+          imageSrc: item.person.images.jpg.image_url,
+          title: `${item.person.name}`,
+          informations: item.positions.map((v: string) => `${v}`)
+        }) satisfies BasicDisplayData
+    )
+    return staff
   } catch (error) {
     console.error('Error fetching top airing animes:', error)
     throw error

@@ -11,11 +11,11 @@ defineProps<{
   <div class="surface-card">
     <Paginator
       locale="en-US"
-      @page="$emit('pageChange')"
+      @page="$emit('page-change', $event)"
       :first="pagination?.first"
       :rows="pagination?.rows"
       :totalRecords="pagination?.total"
-      :rowsPerPageOptions="rowsPerPageOptions ?? [8, 16, 24]"
+      :rowsPerPageOptions="[8, 16, 24]"
     ></Paginator>
   </div>
 </template>

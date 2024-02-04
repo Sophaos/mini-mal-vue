@@ -1,17 +1,19 @@
 import axios from '@/middleware/axios-config'
 import type { DropdownOption } from '@/shared/data-access/models/dropdownOption'
 import type { Media } from '@/shared/data-access/models/media'
-import type { Pagination } from '@/shared/data-access/models/pagination'
+import { getPagination, type Pagination } from '@/shared/data-access/models/pagination'
 import type { SeasonData } from '@/shared/data-access/models/seasonData'
 import type { SeasonParams } from '@/shared/data-access/models/seasonParams'
+import type { SeasonQueryParams } from '@/shared/data-access/models/seasonQueryParams'
 
 const BASE_URL = 'https://api.jikan.moe/v4'
 
-// export const getSeasonMediaData = async (params: SeasonParams) => {
-
-export const getSeasonMediaData = async (params: SeasonParams) => {
+export const getSeasonMediaData = async (params: SeasonParams, queryParams: SeasonQueryParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}/seasons/${params.year}/${params.season}`)
+    console.log('fetching season')
+    const res = await axios.get(`${BASE_URL}/seasons/${params.year}/${params.season}`, {
+      params: { ...queryParams }
+    })
     const data: Media[] = res.data.data.map((item: any) => ({
       id: item.mal_id,
       title: item.title,
@@ -24,11 +26,11 @@ export const getSeasonMediaData = async (params: SeasonParams) => {
       score: item.score,
       members: item.members
     }))
-    const pagination: Pagination = {
-      first: res.data.pagination.current_page,
-      rows: res.data.pagination.items.per_page,
-      total: res.data.pagination.items.total
-    }
+    const pagination: Pagination = getPagination(
+      res.data.pagination.items.per_page,
+      res.data.pagination.current_page,
+      res.data.pagination.items.total
+    )
     return { mediaData: { data, pagination } }
   } catch (error) {
     console.error('Error fetching top airing animes:', error)
