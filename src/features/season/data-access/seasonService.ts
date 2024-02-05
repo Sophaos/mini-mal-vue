@@ -6,12 +6,11 @@ import type { SeasonData } from '@/shared/data-access/models/seasonData'
 import type { SeasonParams } from '@/shared/data-access/models/seasonParams'
 import type { SeasonQueryParams } from '@/shared/data-access/models/seasonQueryParams'
 
-const BASE_URL = 'https://api.jikan.moe/v4'
+const BASE_URL = 'https://api.jikan.moe/v4/seasons'
 
 export const getSeasonMediaData = async (params: SeasonParams, queryParams: SeasonQueryParams) => {
   try {
-    console.log('fetching season')
-    const res = await axios.get(`${BASE_URL}/seasons/${params.year}/${params.season}`, {
+    const res = await axios.get(`${BASE_URL}/${params.year}/${params.season}`, {
       params: { ...queryParams }
     })
     const data: Media[] = res.data.data.map((item: any) => ({
@@ -33,14 +32,14 @@ export const getSeasonMediaData = async (params: SeasonParams, queryParams: Seas
     )
     return { mediaData: { data, pagination } }
   } catch (error) {
-    console.error('Error fetching top airing animes:', error)
+    console.error('Error fetching anime season:', error)
     throw error
   }
 }
 
 export const getSeasonData = async () => {
   try {
-    const res = await axios.get(`${BASE_URL}/seasons`)
+    const res = await axios.get(`${BASE_URL}`)
     const seasonData: SeasonData[] = res.data.data.map(
       (item: any) =>
         ({
@@ -63,7 +62,7 @@ export const getSeasonData = async () => {
     )
     return { yearsSeasonsData: { seasonData, yearOptions } }
   } catch (error) {
-    console.error('Error fetching top airing animes:', error)
+    console.error('Error fetching seasons:', error)
     throw error
   }
 }

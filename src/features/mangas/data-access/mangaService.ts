@@ -3,15 +3,17 @@ import type { BasicDisplayData } from '@/shared/data-access/models/basicDisplayD
 import type { DetailedReview } from '@/shared/data-access/models/detailedReview'
 import type { MangaQueryParams } from '@/shared/data-access/models/mangaQueryParams'
 import type { Media } from '@/shared/data-access/models/media'
-import type { Pagination } from '@/shared/data-access/models/pagination'
+import { getPagination, type Pagination } from '@/shared/data-access/models/pagination'
 import type { Recommendation } from '@/shared/data-access/models/recommendation'
 import type { ImageData } from '@/shared/data-access/models/imageData'
 
 const BASE_URL = 'https://api.jikan.moe/v4/manga'
 
-export const getMangaList = async (params: MangaQueryParams) => {
+export const getMangaList = async (queryParams: MangaQueryParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}`)
+    const res = await axios.get(`${BASE_URL}`, {
+      params: { ...queryParams }
+    })
     const data: Media[] = res.data.data.map(
       (item: any) =>
         ({
@@ -27,14 +29,14 @@ export const getMangaList = async (params: MangaQueryParams) => {
           members: item.members
         }) satisfies Media
     )
-    const pagination: Pagination = {
-      first: res.data.pagination.current_page,
-      rows: res.data.pagination.items.per_page,
-      total: res.data.pagination.items.total
-    }
+    const pagination: Pagination = getPagination(
+      res.data.pagination.items.per_page,
+      res.data.pagination.current_page,
+      res.data.pagination.items.total
+    )
     return { mediaData: { data, pagination } }
   } catch (error) {
-    console.error('Error fetching top airing mangas:', error)
+    console.error('Error fetching airing mangas:', error)
     throw error
   }
 }
@@ -88,7 +90,7 @@ export const getMangaPictures = async (id: any) => {
     )
     return images
   } catch (error) {
-    console.error('Error fetching top airing mangas:', error)
+    console.error('Error fetching manga details:', error)
     throw error
   }
 }
@@ -107,7 +109,7 @@ export const getMangaRecommendations = async (id: any) => {
     )
     return recommendations
   } catch (error) {
-    console.error('Error fetching top airing mangas:', error)
+    console.error('Error fetching manga recommendation:', error)
     throw error
   }
 }
@@ -127,7 +129,7 @@ export const getMangaReviews = async (id: any) => {
     })
     return reviews
   } catch (error) {
-    console.error('Error fetching top airing animes:', error)
+    console.error('Error fetching manga reviews:', error)
     throw error
   }
 }
@@ -144,7 +146,7 @@ export const getMangaCharacters = async (id: any) => {
     )
     return characters
   } catch (error) {
-    console.error('Error fetching top airing animes:', error)
+    console.error('Error fetching manga characters:', error)
     throw error
   }
 }

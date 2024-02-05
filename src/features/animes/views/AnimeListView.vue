@@ -4,28 +4,29 @@ import { useQuery } from '@tanstack/vue-query'
 import { getAnimeList } from '../data-access/animeService'
 import PaginatorComponent from '@/shared/ui/PaginatorComponent.vue'
 import { useRoute, useRouter } from 'vue-router'
+import { computed, onMounted } from 'vue'
+import type { AnimeQueryParams } from '@/shared/data-access/models/animeQueryParams'
 
-// const route = useRoute()
-// const router = useRouter()
+const route = useRoute()
+const router = useRouter()
 
-// // Extracting parameters from the URL
-// const { id, category } = route.params
+const queryParams = computed(() => route.query)
+const enabled = computed(() => Object.keys(route.query).length > 0)
 
-// // If parameters are not present in the URL, set default values and update the URL
-// if (!id || !category) {
-//   const defaultId = 'defaultId'
-//   const defaultCategory = 'defaultCategory'
-
-//   // Programmatically update the route with default parameters
-//   router.push({
-//     name: 'YourRouteName', // Replace with the name of your route
-//     params: { id: defaultId, category: defaultCategory }
-//   })
-// }
+onMounted(() => {
+  const { page, limit } = queryParams.value
+  if (!page || !limit) {
+    router.push({
+      name: 'animes',
+      query: { page: 1, limit: 16, ...route.query }
+    })
+  }
+})
 
 const { data: animes, isPending: isPending } = useQuery({
-  queryKey: ['animeList'],
-  queryFn: () => getAnimeList({})
+  queryKey: ['animeList', queryParams],
+  queryFn: () => getAnimeList({ ...queryParams.value } as AnimeQueryParams),
+  enabled
 })
 
 defineProps<{}>()
@@ -34,6 +35,6 @@ defineProps<{}>()
 <template>
   <div class="col-12">
     <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
-    <PaginatorComponent :pagination="animes?.mediaData.pagination" />
+    <PaginatorComponent :pagination="animes?.mediaData.pagination" name="animes" />
   </div>
 </template>
