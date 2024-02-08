@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MediaDataComponent from '@/shared/ui/MediaDataComponent.vue'
 import { getSeasonData, getSeasonMediaData } from '../data-access/seasonService'
-import { useQuery } from '@tanstack/vue-query'
+import { keepPreviousData, useQuery } from '@tanstack/vue-query'
 import PaginatorComponent from '@/shared/ui/PaginatorComponent.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, onMounted } from 'vue'
@@ -39,7 +39,8 @@ const { data: animes, isPending: isPending } = useQuery({
       { ...params.value } as unknown as SeasonParams,
       { ...queryParams.value } as SeasonQueryParams
     ),
-  enabled
+  enabled,
+  placeholderData: keepPreviousData
 })
 </script>
 

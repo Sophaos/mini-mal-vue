@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MediaDataComponent from '@/shared/ui/MediaDataComponent.vue'
-import { useQuery } from '@tanstack/vue-query'
+import { keepPreviousData, useQuery } from '@tanstack/vue-query'
 import { getMangaList } from '../data-access/mangaService'
 import PaginatorComponent from '@/shared/ui/PaginatorComponent.vue'
 import { computed, onMounted } from 'vue'
@@ -26,7 +26,8 @@ onMounted(() => {
 const { data: mangas, isPending: isPending } = useQuery({
   queryKey: ['mangaList', queryParams],
   queryFn: () => getMangaList({ ...queryParams.value } as MangaQueryParams),
-  enabled
+  enabled,
+  placeholderData: keepPreviousData
 })
 
 defineProps<{}>()
