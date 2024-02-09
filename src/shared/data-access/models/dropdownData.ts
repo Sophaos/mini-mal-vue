@@ -1,9 +1,10 @@
-import { DropdownOption } from 'src/app/shared/data-access/models/dropdownOption'
+import type { DropdownOption } from './dropdownOption'
 
 export interface DropdownData {
   label: string
   value?: string | number
   param: string
+  route: 'param' | 'query'
   type?: string
   options?: DropdownOption[]
   multi?: boolean

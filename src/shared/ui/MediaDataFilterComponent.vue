@@ -1,11 +1,27 @@
 <script setup lang="ts">
-import Dropdown from 'primevue/dropdown';
+import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown';
+import { useRoute, useRouter } from 'vue-router';
 
-defineProps<{
-    data: string[]
-    filterInputs: any[]
-    filterDropdowns: any[]
+const { name } = defineProps<{
+    // data: string[]
+    // filterInputs: any[]
+  filterDropdowns: any[]
+    name: string
 }>()
+
+const route = useRoute()
+const router = useRouter()
+
+const filterUpdate = (event: DropdownChangeEvent, filter: any) => {
+  console.log(event, filter)
+  if (filter.route === 'param') {
+
+    router.push({ name, params: { [filter.param]: event.value }, query: {...route.query, page: 1, limit: 16} })
+  } else {
+    router.push({ name, query: { ...route.query, [filter.param]: event.value } })
+
+  }
+}
 </script>
 
 <template>
@@ -61,6 +77,7 @@ defineProps<{
             v-model="filter.value"
             optionLabel="label"
             optionValue="value"
+            @change="filterUpdate($event, filter)"
           />
         <!-- </ng-container> -->
       </div>
