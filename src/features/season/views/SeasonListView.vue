@@ -21,10 +21,11 @@ const enabled = computed(
   () => Object.keys(route.params).length > 0 && Object.keys(route.query).length > 0
 )
 
-
-const seasonOptions = computed(() => 
-   seasonFilters.value?.yearsSeasonsData.seasonData.find((s) => s.year === Number(route.params.year))
-    ?.seasonOptions ?? []
+const seasonOptions = computed(
+  () =>
+    seasonFilters.value?.yearsSeasonsData.seasonData.find(
+      (s) => s.year === Number(route.params.year)
+    )?.seasonOptions ?? []
 )
 
 const filterDropdowns = computed(() => {
@@ -33,25 +34,25 @@ const filterDropdowns = computed(() => {
       label: 'Year',
       param: 'year',
       route: 'param',
-      value: (route.params.year)?.toString(),
-      options: seasonFilters.value?.yearsSeasonsData.yearOptions,
+      value: route.params.year?.toString(),
+      options: seasonFilters.value?.yearsSeasonsData.yearOptions
     },
     {
       label: 'Season',
       param: 'season',
       route: 'param',
-      value: (route.params.season)?.toString(),
-      options: seasonOptions.value,
+      value: route.params.season?.toString(),
+      options: seasonOptions.value
     },
     {
       label: 'Media',
       param: 'filter',
       route: 'query',
-      value: (route.query.filter)?.toString(),
-      options: MEDIAS,
-    },
-  ];
-  return data;
+      value: route.query.filter?.toString(),
+      options: MEDIAS
+    }
+  ]
+  return data
 })
 
 onMounted(() => {
@@ -81,8 +82,7 @@ const { data: animes, isPending: isPending } = useQuery({
 
 const { data: seasonFilters, isPending: isSeasonFiltersPending } = useQuery({
   queryKey: ['seasonFilters'],
-  queryFn: () =>
-    getSeasonData(),
+  queryFn: () => getSeasonData(),
   enabled,
   placeholderData: keepPreviousData
 })
@@ -90,7 +90,7 @@ const { data: seasonFilters, isPending: isSeasonFiltersPending } = useQuery({
 
 <template>
   <div class="col-12">
-    <MediaDataFilterComponent :filterDropdowns="filterDropdowns" name="season"/>
+    <MediaDataFilterComponent :filterDropdowns="filterDropdowns" name="season" />
     <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
     <PaginatorComponent :pagination="animes?.mediaData.pagination" name="season" />
   </div>

@@ -6,12 +6,14 @@ import type { ImageData } from '@/shared/data-access/models/imageData'
 import type { BasicDisplayData } from '@/shared/data-access/models/basicDisplayData'
 import type { DetailedReview } from '@/shared/data-access/models/detailedReview'
 import type { Recommendation } from '@/shared/data-access/models/recommendation'
+import type { DropdownOption } from '@/shared/data-access/models/dropdownOption'
 
-const BASE_URL = 'https://api.jikan.moe/v4/anime'
+const BASE_URL = 'https://api.jikan.moe/v4'
+const BASE_URL_ANIME = `${BASE_URL}/anime`
 
 export const getAnimeList = async (queryParams: AnimeQueryParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}`, {
+    const res = await axios.get(`${BASE_URL_ANIME}`, {
       params: { ...queryParams }
     })
     const data: Media[] = res.data.data.map(
@@ -41,9 +43,23 @@ export const getAnimeList = async (queryParams: AnimeQueryParams) => {
   }
 }
 
+export const getAnimeGenres = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/genres/anime`)
+    const genres: DropdownOption[] = response.data.data.map((item: any) => ({
+      value: item.mal_id.toString(),
+      label: item.name
+    }))
+    return genres
+  } catch (error) {
+    console.error('Error fetching anime genre:', error)
+    throw error
+  }
+}
+
 export const getAnimeDetail = async (id: any) => {
   try {
-    const res = (await axios.get(`${BASE_URL}/${id}/full`)).data
+    const res = (await axios.get(`${BASE_URL_ANIME}/${id}/full`)).data
     const mediaData: Media = {
       id: res.data.mal_id,
       title: res.data.title,
@@ -89,7 +105,7 @@ export const getAnimeDetail = async (id: any) => {
 
 export const getAnimePictures = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/pictures`)
+    const res = await axios.get(`${BASE_URL_ANIME}/${id}/pictures`)
     const images: ImageData[] = res.data.data.map(
       (item: any) =>
         ({
@@ -106,7 +122,7 @@ export const getAnimePictures = async (id: any) => {
 
 export const getAnimeRecommendations = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/recommendations`)
+    const res = await axios.get(`${BASE_URL_ANIME}/${id}/recommendations`)
     const recommendations = res.data.data.map(
       (item: any) =>
         ({
@@ -125,7 +141,7 @@ export const getAnimeRecommendations = async (id: any) => {
 
 export const getAnimeReviews = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/reviews`)
+    const res = await axios.get(`${BASE_URL_ANIME}/${id}/reviews`)
     const reviews: DetailedReview[] = res.data.data.map((item: any) => {
       return {
         content: item.review,
@@ -145,7 +161,7 @@ export const getAnimeReviews = async (id: any) => {
 
 export const getAnimeCharacters = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/characters`)
+    const res = await axios.get(`${BASE_URL_ANIME}/${id}/characters`)
     const characters: BasicDisplayData[] = res.data.data.map(
       (item: any) =>
         ({
@@ -163,7 +179,7 @@ export const getAnimeCharacters = async (id: any) => {
 
 export const getAnimeStaff = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/staff`)
+    const res = await axios.get(`${BASE_URL_ANIME}/${id}/staff`)
     const staff: BasicDisplayData[] = res.data.data.map(
       (item: any) =>
         ({
