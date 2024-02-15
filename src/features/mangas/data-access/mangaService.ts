@@ -6,12 +6,14 @@ import type { Media } from '@/shared/data-access/models/media'
 import { getPagination, type Pagination } from '@/shared/data-access/models/pagination'
 import type { Recommendation } from '@/shared/data-access/models/recommendation'
 import type { ImageData } from '@/shared/data-access/models/imageData'
+import type { DropdownOption } from '@/shared/data-access/models/dropdownOption'
 
-const BASE_URL = 'https://api.jikan.moe/v4/manga'
+const BASE_URL = 'https://api.jikan.moe/v4'
+const BASE_URL_MANGA = `${BASE_URL}/manga`
 
 export const getMangaList = async (queryParams: MangaQueryParams) => {
   try {
-    const res = await axios.get(`${BASE_URL}`, {
+    const res = await axios.get(`${BASE_URL_MANGA}`, {
       params: { ...queryParams }
     })
     const data: Media[] = res.data.data.map(
@@ -41,9 +43,23 @@ export const getMangaList = async (queryParams: MangaQueryParams) => {
   }
 }
 
+export const getMangaGenres = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/genres/manga`)
+    const genres: DropdownOption[] = response.data.data.map((item: any) => ({
+      value: item.mal_id.toString(),
+      label: item.name
+    }))
+    return genres
+  } catch (error) {
+    console.error('Error fetching manga genres:', error)
+    throw error
+  }
+}
+
 export const getMangaDetail = async (id: any) => {
   try {
-    const res = (await axios.get(`${BASE_URL}/${id}/full`)).data
+    const res = (await axios.get(`${BASE_URL_MANGA}/${id}/full`)).data
     const mediaData: Media = {
       id: res.data.mal_id,
       title: res.data.title,
@@ -80,7 +96,7 @@ export const getMangaDetail = async (id: any) => {
 
 export const getMangaPictures = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/pictures`)
+    const res = await axios.get(`${BASE_URL_MANGA}/${id}/pictures`)
     const images: ImageData[] = res.data.data.map(
       (item: any) =>
         ({
@@ -97,7 +113,7 @@ export const getMangaPictures = async (id: any) => {
 
 export const getMangaRecommendations = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/recommendations`)
+    const res = await axios.get(`${BASE_URL_MANGA}/${id}/recommendations`)
     const recommendations = res.data.data.map(
       (item: any) =>
         ({
@@ -116,7 +132,7 @@ export const getMangaRecommendations = async (id: any) => {
 
 export const getMangaReviews = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/reviews`)
+    const res = await axios.get(`${BASE_URL_MANGA}/${id}/reviews`)
     const reviews: DetailedReview[] = res.data.data.map((item: any) => {
       return {
         content: item.review,
@@ -136,7 +152,7 @@ export const getMangaReviews = async (id: any) => {
 
 export const getMangaCharacters = async (id: any) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}/characters`)
+    const res = await axios.get(`${BASE_URL_MANGA}/${id}/characters`)
     const characters: BasicDisplayData[] = res.data.data.map(
       (item: any) =>
         ({

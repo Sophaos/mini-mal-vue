@@ -39,7 +39,7 @@ const { data: animes, isPending: isPending } = useQuery({
 //   placeholderData: keepPreviousData
 // })
 
-const selectAnimeDropdownData = computed(() => {
+const animeDropdowns = computed(() => {
   const data: DropdownData[] = [
     {
       label: 'Media',
@@ -94,7 +94,7 @@ defineProps<{}>()
 
 <template>
   <div class="col-12">
-    <MediaDataFilterComponent :filterDropdowns="selectAnimeDropdownData" name="animes" />
+    <MediaDataFilterComponent :filterDropdowns="animeDropdowns" name="animes" />
     <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
     <PaginatorComponent :pagination="animes?.mediaData.pagination" name="animes" />
   </div>

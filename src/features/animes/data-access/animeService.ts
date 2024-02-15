@@ -52,7 +52,7 @@ export const getAnimeGenres = async () => {
     }))
     return genres
   } catch (error) {
-    console.error('Error fetching anime genre:', error)
+    console.error('Error fetching anime genres:', error)
     throw error
   }
 }
