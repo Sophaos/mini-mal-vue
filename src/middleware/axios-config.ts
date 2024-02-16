@@ -11,6 +11,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     console.error('HTTP error occurred:', error)
+    if (error?.response?.status === 429) return Promise.reject(error)
     app.config.globalProperties.$toast.add({
       severity: 'error',
       summary: 'Error',

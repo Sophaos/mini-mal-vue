@@ -14,7 +14,10 @@ const BASE_URL_ANIME = `${BASE_URL}/anime`
 export const getAnimeList = async (queryParams: AnimeQueryParams) => {
   try {
     const res = await axios.get(`${BASE_URL_ANIME}`, {
-      params: { ...queryParams }
+      params: { ...queryParams },
+      paramsSerializer: {
+        indexes: null
+      }
     })
     const data: Media[] = res.data.data.map(
       (item: any) =>

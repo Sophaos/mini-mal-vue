@@ -13,7 +13,13 @@ import router from './router'
 
 const vueQueryPluginOptions: VueQueryPluginOptions = {
   queryClientConfig: {
-    defaultOptions: { queries: { staleTime: 3600000 } }
+    defaultOptions: {
+      queries: {
+        staleTime: 3600000,
+        refetchOnWindowFocus: false,
+        retryDelay: 1500
+      }
+    }
   }
 }
 

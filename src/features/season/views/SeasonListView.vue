@@ -34,21 +34,21 @@ const filterDropdowns = computed(() => {
       label: 'Year',
       param: 'year',
       route: 'param',
-      value: route.params.year?.toString(),
+      value: route.params.year,
       options: seasonFilters.value?.yearsSeasonsData.yearOptions
     },
     {
       label: 'Season',
       param: 'season',
       route: 'param',
-      value: route.params.season?.toString(),
+      value: route.params.season,
       options: seasonOptions.value
     },
     {
       label: 'Media',
       param: 'filter',
       route: 'query',
-      value: route.query.filter?.toString(),
+      value: route.query.filter,
       options: MEDIAS
     }
   ]

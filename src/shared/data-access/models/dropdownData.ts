@@ -1,12 +1,12 @@
+import type { LocationQueryValue } from 'vue-router'
 import type { DropdownOption } from './dropdownOption'
 
 export interface DropdownData {
   label: string
-  value?: string | number
+  value?: LocationQueryValue | LocationQueryValue[] | number
   param: string
   route: 'param' | 'query'
   type?: string
   options?: DropdownOption[]
   multi?: boolean
-  change?: (event: string | number, param: string) => void
 }

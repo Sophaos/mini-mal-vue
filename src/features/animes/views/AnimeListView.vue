@@ -8,10 +8,10 @@ import { computed, onMounted } from 'vue'
 import type { AnimeQueryParams } from '@/shared/data-access/models/animeQueryParams'
 import MediaDataFilterComponent from '@/shared/ui/MediaDataFilterComponent.vue'
 import type { DropdownData } from '@/shared/data-access/models/dropdownData'
-import { RATINGS, STATUSES, ORDERS, MEDIAS, SORTS } from '../data-access/dropdownOptions'
+import { RATINGS, STATUSES, ORDERS, MEDIAS, SORTS, SCORES } from '../data-access/dropdownOptions'
+
 const route = useRoute()
 const router = useRouter()
-
 const queryParams = computed(() => route.query)
 const enabled = computed(() => Object.keys(route.query).length > 0)
 
@@ -32,12 +32,22 @@ const { data: animes, isPending: isPending } = useQuery({
   placeholderData: keepPreviousData
 })
 
-// const { data: genres, isPending: areGenresPending } = useQuery({
-//   queryKey: ['animeGenres'],
-//   queryFn: () => getAnimeGenres(),
-//   enabled,
-//   placeholderData: keepPreviousData
-// })
+const { data: genres, isPending: areGenresPending } = useQuery({
+  queryKey: ['animeGenres'],
+  queryFn: () => getAnimeGenres(),
+  enabled,
+  placeholderData: keepPreviousData
+})
+
+const filterInputs: DropdownData[] = [
+  {
+    label: 'Filter',
+    param: 'q',
+    type: 'string',
+    route: 'query',
+    value: route.query.q
+  }
+]
 
 const animeDropdowns = computed(() => {
   const data: DropdownData[] = [
@@ -45,45 +55,60 @@ const animeDropdowns = computed(() => {
       label: 'Media',
       param: 'type',
       options: MEDIAS,
-      value: route.query.type?.toString(),
+      value: route.query.type,
       route: 'query'
     },
-    // {
-    //   label: 'Genre(s)',
-    //   param: 'genres',
-    //   options: genres.value,
-    //   multi: true,
-    //   route: 'query'
-    // },
+    {
+      label: 'Genre(s)',
+      param: 'genres',
+      options: genres.value,
+      multi: true,
+      value: route.query.genres,
+      route: 'query'
+    },
     {
       label: 'Status',
       param: 'status',
       options: STATUSES,
-      value: route.query.status?.toString(),
+      value: route.query.status,
       route: 'query'
     },
     {
       label: 'Rating',
       param: 'rating',
       options: RATINGS,
-      value: route.query.rating?.toString(),
+      value: route.query.rating,
       route: 'query'
     },
     {
       label: 'Order By',
       param: 'order_by',
       options: ORDERS,
-      value: route.query.order_by?.toString(),
-
+      value: route.query.order_by,
       route: 'query'
     },
     {
       label: 'Sort',
       param: 'sort',
       options: SORTS,
-      value: route.query.sort?.toString(),
-
+      value: route.query.sort,
       route: 'query'
+    },
+    {
+      label: 'Min Score',
+      param: 'min_score',
+      type: 'number',
+      route: 'query',
+      options: SCORES,
+      value: route.query.min_score
+    },
+    {
+      label: 'Max Score',
+      param: 'max_score',
+      type: 'number',
+      route: 'query',
+      options: SCORES,
+      value: route.query.max_score
     }
   ]
   return data
@@ -94,8 +119,12 @@ defineProps<{}>()
 
 <template>
   <div class="col-12">
-    <MediaDataFilterComponent :filterDropdowns="animeDropdowns" name="animes" />
-    <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
+    <MediaDataFilterComponent
+      :filterDropdowns="animeDropdowns"
+      :filterInputs="filterInputs"
+      name="animes"
+    />
+    <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="animes" />
     <PaginatorComponent :pagination="animes?.mediaData.pagination" name="animes" />
   </div>
 </template>
