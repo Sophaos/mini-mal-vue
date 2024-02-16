@@ -3,6 +3,7 @@ import type { Media } from '../data-access/models/media'
 import type { ImageData } from '../data-access/models/imageData'
 import ChipListComponent from './ChipListComponent.vue'
 import Galleria from 'primevue/galleria'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
   media: Media
@@ -20,6 +21,7 @@ defineProps<{
     <div class="w-12 xl:w-7 px-4">
       <router-link
         :to="{ name: 'anime-detail', params: { id: media.id } }"
+        @click="scrollToTop"
         class="text-3xl font-bold text-primary no-underline"
       >
         {{ media.title }}

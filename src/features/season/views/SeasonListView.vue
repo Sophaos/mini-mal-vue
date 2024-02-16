@@ -91,7 +91,11 @@ const { data: seasonFilters, isPending: isSeasonFiltersPending } = useQuery({
 <template>
   <div class="col-12">
     <MediaDataFilterComponent :filterDropdowns="filterDropdowns" name="season" />
-    <MediaDataComponent :isLoading="isPending" :data="animes?.mediaData.data ?? []" type="anime" />
+    <MediaDataComponent
+      :isLoading="isPending"
+      :data="animes?.mediaData.data ?? []"
+      route="anime-detail"
+    />
     <PaginatorComponent :pagination="animes?.mediaData.pagination" name="season" />
   </div>
 </template>

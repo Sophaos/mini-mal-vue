@@ -4,6 +4,7 @@ import Panel from 'primevue/panel'
 import MainPreviewContentComponent from './MainPreviewContentComponent.vue'
 import type { Media } from '../data-access/models/media'
 import { getCurrentSeason } from '../utils/currentSeason'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
   header: string
@@ -22,6 +23,7 @@ const currentYear = new Date().getFullYear()
       <template #header>
         <router-link
           :to="{ name: 'season', params: { year: currentYear, season: currentSeason } }"
+          @click="scrollToTop"
           class="font-bold text-primary no-underline max-w-20rem white-space-nowrap overflow-hidden text-overflow-ellipsis"
         >
           Top Airing Animes

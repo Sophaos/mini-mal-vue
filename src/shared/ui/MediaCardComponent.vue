@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Media } from '../data-access/models/media'
 import ChipListComponent from './ChipListComponent.vue'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
   media: Media
-  type: string
+  route: 'anime-detail' | 'manga-detail'
 }>()
 </script>
 
@@ -12,8 +13,9 @@ defineProps<{
   <div class="p-4 flex flex-column h-full border-1 surface-border surface-card border-round">
     <div>
       <router-link
-        :to="{ name: 'anime-detail', params: { id: media.id } }"
+        :to="{ name: route, params: { id: media.id } }"
         replace
+        @click="scrollToTop"
         class="font-semibold flex justify-content-center text-primary text-overflow-ellipsis no-underline"
       >
         {{ media.titleEnglish ?? media.title }}

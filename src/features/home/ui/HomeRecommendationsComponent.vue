@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HomeRecommendation } from '@/shared/data-access/models/homeRecommendation'
 import PanelComponent from '@/shared/ui/PanelComponent.vue'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
   recommendations: HomeRecommendation[] | undefined
@@ -36,6 +37,7 @@ defineProps<{
                     <router-link
                       :to="{ name: 'anime-detail', params: { id: recommendation.likedMediaId } }"
                       class="font-bold text-primary no-underline max-w-20rem white-space-nowrap overflow-hidden text-overflow-ellipsis"
+                      @click="scrollToTop"
                     >
                       {{ recommendation.likedMediaTitle }}
                     </router-link>
@@ -47,6 +49,7 @@ defineProps<{
                         name: 'anime-detail',
                         params: { id: recommendation.mightLikeMediaId }
                       }"
+                      @click="scrollToTop"
                       class="font-bold text-primary no-underline max-w-20rem white-space-nowrap overflow-hidden text-overflow-ellipsis"
                     >
                       {{ recommendation.mightLikeMediatitle }}

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Review } from '@/shared/data-access/models/review'
 import PanelComponent from '@/shared/ui/PanelComponent.vue'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
   reviews: Review[] | undefined
@@ -26,6 +27,7 @@ defineProps<{
                 <div class="flex justify-content-between flex-wrap w-full">
                   <router-link
                     :to="{ name: 'anime-detail', params: { id: review.id } }"
+                    @click="scrollToTop"
                     class="font-bold text-primary no-underline max-w-20rem white-space-nowrap overflow-hidden text-overflow-ellipsis"
                   >
                     {{ review.title }}

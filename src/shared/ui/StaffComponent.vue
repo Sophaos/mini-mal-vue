@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import type { BasicDisplayData } from '../data-access/models/basicDisplayData'
-
 defineProps<{
-  characters: BasicDisplayData[]
+  staff: BasicDisplayData[]
 }>()
 </script>
 
 <template>
   <div class="flex flex-row flex-wrap">
     <div
-      v-for="c of characters"
-      :key="c.title"
-      class="col-12 md:col-6 lg:col-4 xl:col-3 flex flex-row"
+      v-for="s of staff"
+      :key="s.title"
+      class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-2 flex flex-row"
     >
-      <img class="w-6 border-round-lg" :src="c.imageSrc" />
+      <img class="w-4 border-round-lg" :src="s.imageSrc" />
       <div
         class="flex flex-column sm:flex-row justify-content-between align-items-start flex-1 gap-4"
       >
@@ -22,11 +21,11 @@ defineProps<{
             <div class="min-w-full text-sm">
               <div class="flex flex-row justify-content-between flex-wrap mb-3">
                 <div class="text-bold text-color-secondary">
-                  {{ c.title }}
+                  {{ s.title }}
                 </div>
               </div>
-              <div v-if="c.informations" class="flex flex-column text-sm max-h-11rem overflow-auto">
-                <div v-for="v of c.informations" class="mb-1" :key="v">
+              <div class="flex flex-column text-sm max-h-10rem overflow-auto">
+                <div v-for="v of s.informations" :key="v">
                   {{ v }}
                 </div>
               </div>

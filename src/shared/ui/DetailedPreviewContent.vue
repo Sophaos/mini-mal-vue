@@ -3,6 +3,8 @@ import Divider from 'primevue/divider'
 import type { Media } from '../data-access/models/media'
 import LabelInfoComponent from './LabelInfoComponent.vue'
 import LabelListComponent from './LabelListComponent.vue'
+import { scrollToTop } from '@/shared/utils/scrollBehaviour'
+
 defineProps<{
   media: Media
   type: 'animes' | 'mangas'
@@ -28,6 +30,7 @@ defineProps<{
         <router-link
           v-if="media.year && media.season"
           class="no-underline text-primary font-semibold"
+          @click="scrollToTop"
           :to="{ name: 'season', params: { year: media.year, season: media.season } }"
         >
           {{ media.season }} {{ media.year }}

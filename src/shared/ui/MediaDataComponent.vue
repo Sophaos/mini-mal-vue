@@ -5,7 +5,7 @@ import MediaCardComponent from './MediaCardComponent.vue'
 defineProps<{
   data: Media[]
   isLoading: boolean
-  type: string
+  route: 'anime-detail' | 'manga-detail'
 }>()
 </script>
 
@@ -17,7 +17,7 @@ defineProps<{
         :key="media.id"
         class="flex flex-row flex-wrap col-12 sm:col-12 md:col-6 lg:col-4 xl:col-3 p-2"
       >
-        <MediaCardComponent :media="media" class="w-12" :type="type" />
+        <MediaCardComponent :media="media" class="w-12" :route="route" />
       </div>
     </div>
     <!-- <app-paginator
