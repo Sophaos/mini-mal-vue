@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HomeRecommendation } from '@/shared/data-access/models/homeRecommendation'
 import PanelComponent from '@/shared/ui/PanelComponent.vue'
+import PanelSkeletonComponent from '@/shared/ui/PanelSkeletonComponent.vue'
 import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
@@ -71,5 +72,6 @@ defineProps<{
         </div>
       </div>
     </div>
+    <PanelSkeletonComponent v-else />
   </PanelComponent>
 </template>

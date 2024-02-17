@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Review } from '@/shared/data-access/models/review'
 import PanelComponent from '@/shared/ui/PanelComponent.vue'
+import PanelSkeletonComponent from '@/shared/ui/PanelSkeletonComponent.vue'
 import { scrollToTop } from '@/shared/utils/scrollBehaviour'
 
 defineProps<{
@@ -64,5 +65,6 @@ defineProps<{
         </div>
       </div>
     </div>
+    <PanelSkeletonComponent v-else />
   </PanelComponent>
 </template>

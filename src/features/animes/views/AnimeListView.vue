@@ -123,12 +123,17 @@ defineProps<{}>()
       :filterDropdowns="animeDropdowns"
       :filterInputs="filterInputs"
       name="animes"
+      :isLoading="isPending || areGenresPending"
     />
     <MediaDataComponent
       :isLoading="isPending"
       :data="animes?.mediaData.data ?? []"
       route="anime-detail"
     />
-    <PaginatorComponent :pagination="animes?.mediaData.pagination" name="animes" />
+    <PaginatorComponent
+      :loading="!!animes"
+      :pagination="animes?.mediaData.pagination"
+      name="animes"
+    />
   </div>
 </template>
