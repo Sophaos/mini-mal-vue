@@ -10,19 +10,19 @@ const seasonUrl = `/season/${currentYear}/${currentSeason}?page=1&limit=16`
 const items = ref([
   {
     label: 'Home',
-    url: '/'
+    route: '/'
   },
   {
     label: 'Animes',
-    url: '/animes'
+    route: '/animes'
   },
   {
     label: 'Mangas',
-    url: '/mangas'
+    route: '/mangas'
   },
   {
     label: 'Season',
-    url: seasonUrl
+    route: seasonUrl
   }
 ])
 </script>
@@ -32,6 +32,13 @@ const items = ref([
     <Menubar :model="items">
       <template #start>
         <Avatar image="https://cdn.myanimelist.net/images/kaomoji_mal_white.png" shape="circle" />
+      </template>
+      <template #item="{ item, props }">
+        <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+          <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </router-link>
       </template>
     </Menubar>
   </div>
