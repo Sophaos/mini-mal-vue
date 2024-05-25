@@ -1,4 +1,4 @@
-![image](https://github.com/Sophaos/mini-mal-vue/assets/54873061/53db1c3f-f79d-4967-a167-901c31dee0c5)# Mini-MAL-Vue
+# Mini-MAL-Vue
 
 A minimal version of MyAnimeList built with Vue using the JIKAN API to visualize upcoming anime and manga, as well as their details.
 
