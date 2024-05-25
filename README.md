@@ -1,46 +1,38 @@
-# mini-mal-vue
+# Mini-MAL-Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+A minimal version of MyAnimeList built with Vue using the JIKAN API to visualize upcoming anime and manga, as well as their details.
 
-## Recommended IDE Setup
+You can access the live web app here: [Mini-MAL-Vue Web App](https://sophaos-mini-mal-vue.netlify.app/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<p align="center">
+  <img src="https://github.com/Sophaos/mini-mal-ng/assets/54873061/5d49cb79-7c52-49dc-9830-586696eab479" width="45%">
+  <img src="https://github.com/Sophaos/mini-mal-ng/assets/54873061/500698f1-b1e5-441c-a6ee-e4fd2aa1f0c3" width="45%">
+</p>
 
-## Type Support for `.vue` Imports in TS
+This project was generated with Vue version 3.3.11.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Motivation
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+My motivation was to learn Vue with the Composition API by building an application that uses a public API to view the details of anime and manga, similar to MyAnimeList.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## What I've learned
 
-## Customize configuration
+- Using Vue with the Composition API
+- Utilizing the PrimeVue component library
+- Implementing data fetching with Vue Query (tanstack/vue-query)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## What I've used
 
-## Project Setup
+- Vue
+- TypeScript
+- Vue Query (tanstack/vue-query)
+- PrimeVue
+- PrimeFlex
 
-```sh
-npm install
-```
+## How to run
 
-### Compile and Hot-Reload for Development
+Run the following command: `docker compose up`
 
-```sh
-npm run dev
-```
+## Development server
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Run `npm run dev` for a development server. Navigate to `http://localhost:5173/`. The application will automatically reload if you change any of the source files.
